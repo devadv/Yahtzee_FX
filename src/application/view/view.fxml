@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.mainController">
    <children>
       <Pane prefHeight="800.0" prefWidth="1200.0">
          <children>
-            <Button fx:id="button_1" layoutX="40.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_1" layoutX="40.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#dice_1_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -64,6 +64,7 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="roll_Dices" layoutX="275.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#rollDices_click" prefHeight="50.0" prefWidth="100.0" text="roll_Dices" />
          </children>
       </Pane>
    </children>
