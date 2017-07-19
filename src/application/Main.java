@@ -1,6 +1,8 @@
 package application;
 
 import java.io.IOException;
+
+import application.controller.mainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -45,6 +47,9 @@ public class Main extends Application {
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
+			
+			mainController controller = loader.getController();
+			controller.setMainApp(this);
 
 			primaryStage.show();
 	} catch (IOException e) {

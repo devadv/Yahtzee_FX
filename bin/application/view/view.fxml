@@ -10,7 +10,7 @@
    <children>
       <Pane prefHeight="800.0" prefWidth="1200.0">
          <children>
-            <Button fx:id="button_1" layoutX="40.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#dice_1_click" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_1" layoutX="40.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -19,7 +19,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="button_2" layoutX="140.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_2" layoutX="140.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +28,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="button_3" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_3" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +37,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="button_4" layoutX="340.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_4" layoutX="340.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,7 +46,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="button_5" layoutX="440.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_5" layoutX="440.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -55,16 +55,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="540.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../resources/images/dice_6.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="roll_Dices" layoutX="275.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#rollDices_click" prefHeight="50.0" prefWidth="100.0" text="roll_Dices" />
+            <Button fx:id="roll_Dices" layoutX="225.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#rollDices_click" prefHeight="50.0" prefWidth="100.0" text="roll_Dices" />
          </children>
       </Pane>
    </children>
