@@ -21,7 +21,7 @@ public class Main extends Application {
 		try {
 			this.primaryStage = primaryStage;
 			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,1200,800);
+			Scene scene = new Scene(root,1100,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Yahtzee");
@@ -47,13 +47,13 @@ public class Main extends Application {
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
-			
+
 			mainController controller = loader.getController();
 			controller.setMainApp(this);
 
 			primaryStage.show();
 	} catch (IOException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 	}
