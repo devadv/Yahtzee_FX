@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -17,47 +16,27 @@
          <children>
             <Button fx:id="button_1" layoutX="40.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fx:id="dice_1_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../resources/images/dice_1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="dice_1_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
             <Button fx:id="button_2" layoutX="140.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fx:id="dice_2_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../resources/images/dice_2.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="dice_2_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
             <Button fx:id="button_3" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fx:id="dice_3_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../resources/images/dice_3.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="dice_3_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
             <Button fx:id="button_4" layoutX="340.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fx:id="dice_4_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../resources/images/dice_4.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="dice_4_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
             <Button fx:id="button_5" layoutX="440.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
-                  <ImageView fx:id="dice_5_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../resources/images/dice_5.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="dice_5_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
             <Button fx:id="roll_Dices" layoutX="225.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#rollDices_click" prefHeight="50.0" prefWidth="100.0" text="Roll dices" />

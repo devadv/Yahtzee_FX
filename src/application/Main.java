@@ -50,11 +50,11 @@ public class Main extends Application {
 
 			mainController controller = loader.getController();
 			controller.setMainApp(this);
-
+			
 			primaryStage.show();
-	} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 	}
 
