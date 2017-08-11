@@ -80,7 +80,7 @@ public class mainController {
 		imageV[0] = dice_1_imageV;
 		imageV[0].setImage(image[0]);
 		imageV[0].setVisible(true);
-		
+		 
 	}
 
 	@FXML
