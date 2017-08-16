@@ -4,6 +4,7 @@ import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -11,20 +12,32 @@ import javafx.stage.Stage;
 public class mainController {
 	@FXML
 	private Button button_1, button_2, button_3, button_4, button_5;
+	@FXML
 	private Button roll_Dices;
+	@FXML
 	private ImageView dice_1_imageV, dice_2_imageV, dice_3_imageV, dice_4_imageV, dice_5_imageV;
 	private Main main;
-	private Dice[] dices = new Dice[6];
+	private Dice[] dices = new Dice[5];
 	private Game game = new Game(0, 0);
 	private boolean diceIsCreated = false;
 	private Stage primaryStage;
 
 	@FXML
 	private void dice_click(ActionEvent event){
+		ColorAdjust colorOnHold = new ColorAdjust();
+		ColorAdjust colorNotHold = new ColorAdjust();
+		colorOnHold.setBrightness(-0.5);
+		colorNotHold.setBrightness(0.0);
 
 		if(event.getSource() == button_1)
 		{
-			System.out.println("btn 1 click");
+			dices[0].setHold();
+			if(dices[0].isHold()){
+				dice_1_imageV.setEffect(colorOnHold);
+			}
+			else{
+				dice_1_imageV.setEffect(colorNotHold);
+			}
 		}
 
 		if(event.getSource() == button_2)
@@ -63,8 +76,6 @@ public class mainController {
 
 	@FXML
 	private void setDiceImages() {
-		int dice_1_Value = dices[0].getValue();
-		System.out.println(dice_1_Value);
 
 		Image[] image = new Image[6];
 		image[0] = new Image("file:resources/images/dice_1.png");
@@ -74,13 +85,12 @@ public class mainController {
 		image[4] = new Image("file:resources/images/dice_5.png");
 		image[5] = new Image("file:resources/images/dice_6.png");
 
-		ImageView[] imageV = new ImageView[5];
-		imageV[0] = new ImageView();
-		dice_1_imageV = new ImageView();
-		imageV[0] = dice_1_imageV;
-		imageV[0].setImage(image[0]);
-		imageV[0].setVisible(true);
-		 
+		dice_1_imageV.setImage(image[dices[0].getValue() - 1]);
+		dice_2_imageV.setImage(image[dices[1].getValue() - 1]);
+		dice_3_imageV.setImage(image[dices[2].getValue() - 1]);
+		dice_4_imageV.setImage(image[dices[3].getValue() - 1]);
+		dice_5_imageV.setImage(image[dices[4].getValue() - 1]);
+
 	}
 
 	@FXML
