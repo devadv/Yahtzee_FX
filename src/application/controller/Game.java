@@ -119,7 +119,7 @@ public class Game {
 				executeScore(player, 10);
 			}
 
-			//player.displayScoreForm();
+
 			reset();
 			repeat = false;
 			break;
