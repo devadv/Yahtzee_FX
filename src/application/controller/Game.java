@@ -19,10 +19,10 @@ public class Game {
 		for (int i = 0; i < dices.length; i++) {
 			dices[i] = new Dice();
 		}
-		
+
 		this.player = new Player[players];
 		Scanner keyboard = new Scanner(System.in);
-		
+
 		for (int j = 0; j < players; j++) {
 			System.out.print("Enter name of player " + (j + 1) + ": ");
 			String name = keyboard.nextLine();
@@ -32,24 +32,24 @@ public class Game {
 	}
 
 	public void start() {
-				
+
 		for (int p = 0; p < player.length; p++) {
 			System.out.println("The players are: " + player[p].getName());
 		}
-		
+
 		for (int i = rounds; i > 0; i--) {
 			for (int j = 0; j < player.length; j++) {
 				playerTurn(player[j]);
 			}
 		}
-		
+
 		for (int j = 0; j < player.length; j++) {
 			player[j].getScoreForm().printEndResult();
 		}
 	}
 
 	public void playerTurn(Player player) {
-		
+
 		System.out.println();
 		System.out.println("It is " + player.getName() + "'s turn");
 		System.out.println("type dice number to hold/onhold");
@@ -76,7 +76,7 @@ public class Game {
 		repeat = true;
 		int numberofDice = keyboard.nextInt();
 		keyboard.nextLine();
-		
+
 		if(numberOfthrows == 3){
 			numberofDice = 10;
 		}
@@ -111,7 +111,7 @@ public class Game {
 			}else{
 				System.out.println("End of turn: you have to choose 10 to end turn");
 			}
-			
+
 			break;
 		case 7:// hold all dices
 			for (int i = 0; i < dices.length; i++) {
@@ -128,7 +128,7 @@ public class Game {
 				System.out.println("Only number from 1 to 13 are allowed.");
 				executeScore(player, 10);
 			}
-			
+
 			//player.displayScoreForm();
 			reset();
 			repeat = false;
@@ -158,7 +158,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	public void chooseScore(Player player) {
 		player.displayScoreForm();
 		Scanner keyboard = new Scanner(System.in);
@@ -166,10 +166,10 @@ public class Game {
 		int score = keyboard.nextInt();
 		executeScore(player, score);
 	}
-	
+
 	public void executeScore(Player player, int score) throws InputMismatchException {
 		//player.displayScoreForm();
-		
+
 		switch (score) {
 		case 1:
 			addScore(player, score);
@@ -226,7 +226,7 @@ public class Game {
 					player.getScoreForm().addScore(Yahtzee.FULLHOUSE, 9);
 				}
 				else if(player.getScoreForm().getScorePositon(dices) == 0){
-					System.out.println("Can not fill full house because compartment: " + 
+					System.out.println("Can not fill full house because compartment: " +
 							dices[0].getValue() + " is not filled.");
 				}
 			}
@@ -249,7 +249,7 @@ public class Game {
 					player.getScoreForm().addScore(Yahtzee.SMALLSTRAIGHT, 10);
 				}
 				else if(player.getScoreForm().getScorePositon(dices) == 0){
-					System.out.println("Can not fill small straight because compartment: " + 
+					System.out.println("Can not fill small straight because compartment: " +
 							dices[0].getValue() + " is not filled.");
 				}
 			}
@@ -269,7 +269,7 @@ public class Game {
 					player.getScoreForm().addScore(Yahtzee.LARGESTRAIGHT, 11);
 				}
 				else if(player.getScoreForm().getScorePositon(dices) == 0){
-					System.out.println("Can not fill large straight because compartment: " + 
+					System.out.println("Can not fill large straight because compartment: " +
 							dices[0].getValue() + " is not filled.");
 				}
 			}
@@ -288,7 +288,7 @@ public class Game {
 				else{
 					player.getScoreForm().addScore(Yahtzee.YAHTZEEBONUS, 12);
 					yahtzeeBonus = true;
-					System.out.println("Fill the score also in small straight or large straight or full house or compartment " + 
+					System.out.println("Fill the score also in small straight or large straight or full house or compartment " +
 							dices[0].getValue() + " .");
 					if(tries){
 						chooseScore(player);
@@ -306,7 +306,7 @@ public class Game {
 			if(player.getScoreForm().canAddScore(yahtzee.countAllDices(dices), 13)){
 				player.getScoreForm().addScore(yahtzee.countAllDices(dices), 13);
 			}
-			
+
 			break;
 		default:
 			System.out.println("Only number from 1 to 13 are allowed.");
@@ -316,7 +316,7 @@ public class Game {
 		}
 		player.displayScoreForm();
 	}
-	
+
 	public void addScore(Player player,int score) {
 		if( player.getScoreForm().canAddScore(yahtzee.countValueDices(dices, score), score) ){
 			player.getScoreForm().addScore(yahtzee.countValueDices(dices, score), score);
@@ -328,15 +328,18 @@ public class Game {
 			}
 		}
 	}
-	
+
 	public void setDices(Dice[] dices) {
 		this.dices = dices;
 	}
-	
+
 	public void testGameClass(boolean tries) {
 		this.tries = tries;
 	}
-	
+
+	public int getNumberOfThrows() {
+		return numberOfthrows;
+	}
 
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
@@ -344,7 +347,7 @@ public class Game {
 		int nPlayers = keyboard.nextInt();
 		Game game = new Game(nPlayers, 2);
 		game.start();
-		
+
 	}
 
 }
