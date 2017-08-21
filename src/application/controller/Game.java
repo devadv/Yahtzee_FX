@@ -136,8 +136,8 @@ public class Game {
 
 	public void printDicesValue() {
 		for (int i = 0; i < dices.length; i++) {
-			System.out.printf("Dice %d. %10d %10s\n", i + 1,
-					dices[i].getValue(), dices[i].isHold() ? "Hold" : "");
+//			System.out.printf("Dice %d. %10d %10s\n", i + 1,
+//					dices[i].getValue(), dices[i].isHold() ? "Hold" : "");
 		}
 
 	}
