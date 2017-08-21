@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+import application.model.Dice;
+
 
 public class Yahtzee {
 	private final int rounds = 1;

@@ -2,16 +2,21 @@ package application.controller;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import application.controller.Yahtzee;
+import application.model.Dice;
+import javax.swing.JOptionPane;
+
 
 public class Game {
 	private Dice[] dices;
 	private int rounds;
 	private Player[] player;
 	private boolean repeat;
-	private int numberOfthrows;
+	private int numberOfthrows = 0;
 	private Yahtzee yahtzee;
 	private boolean tries = true;
 	private boolean yahtzeeBonus = false;
+	private String name;
 
 	public Game(int players, int rounds) {
 		this.rounds = rounds;
@@ -21,11 +26,9 @@ public class Game {
 		}
 
 		this.player = new Player[players];
-		Scanner keyboard = new Scanner(System.in);
+
 
 		for (int j = 0; j < players; j++) {
-			System.out.print("Enter name of player " + (j + 1) + ": ");
-			String name = keyboard.nextLine();
 			player[j] = new Player(name);
 		}
 		yahtzee = new Yahtzee();
@@ -44,27 +47,17 @@ public class Game {
 		}
 
 		for (int j = 0; j < player.length; j++) {
-			player[j].getScoreForm().printEndResult();
+			//player[j].getScoreForm().printEndResult();
 		}
 	}
 
 	public void playerTurn(Player player) {
-
-		System.out.println();
-		System.out.println("It is " + player.getName() + "'s turn");
-		System.out.println("type dice number to hold/onhold");
-		System.out.println("type 7 to hold all dices");
-		System.out.println("zero to roll dices");
-		System.out.println("and 10 to end turn");
-		roll();
-		numberOfthrows = 1;
 		printDicesValue();
 		repeat = true;
 		while (repeat) {
 			try {
 				holdDices(player);
 			} catch (InputMismatchException ex) {
-				System.out.println("Only numbers form 0 to 7 and 10 are allowed");
 				playerTurn(player);
 			}
 		}
@@ -72,16 +65,13 @@ public class Game {
 	}
 
 	public void holdDices(Player player) throws InputMismatchException {
-		Scanner keyboard = new Scanner(System.in);
 		repeat = true;
-		int numberofDice = keyboard.nextInt();
-		keyboard.nextLine();
+
 
 		if(numberOfthrows == 3){
-			numberofDice = 10;
 		}
 
-		switch (numberofDice) {
+		switch () {
 		case 1:
 			dices[0].setHold();
 			printDicesValue();
@@ -141,6 +131,7 @@ public class Game {
 		for (int i = 0; i < dices.length; i++) {
 			dices[i].roll();
 		}
+		numberOfthrows++;
 	}
 
 	public void printDicesValue() {
@@ -149,6 +140,10 @@ public class Game {
 					dices[i].getValue(), dices[i].isHold() ? "Hold" : "");
 		}
 
+	}
+
+	public int getDiceValues(int diceNumber) {
+		return dices[diceNumber].getValue();
 	}
 
 	public void reset() {
@@ -160,7 +155,7 @@ public class Game {
 	}
 
 	public void chooseScore(Player player) {
-		player.displayScoreForm();
+
 		Scanner keyboard = new Scanner(System.in);
 		System.out.print("Choose score: ");
 		int score = keyboard.nextInt();
@@ -337,17 +332,18 @@ public class Game {
 		this.tries = tries;
 	}
 
+
+
 	public int getNumberOfThrows() {
 		return numberOfthrows;
 	}
 
-	public static void main(String[] args) {
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Enter number of players: ");
-		int nPlayers = keyboard.nextInt();
-		Game game = new Game(nPlayers, 2);
-		game.start();
+	public Dice getDice(int diceNumber) {
+		return dices[diceNumber];
+	}
 
+	public String getName() {
+		return name;
 	}
 
 }

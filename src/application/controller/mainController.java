@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.Main;
+import application.model.Dice;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,11 +23,20 @@ public class mainController {
 	private TextArea onesTxArea, t;
 
 	private Main main;
+	private Game game;
 	private Dice[] dices = new Dice[5];
-	private Game game = new Game(0, 0);
 	private boolean diceIsCreated = false;
 	private Stage primaryStage;
 
+	@FXML
+	public void mainController() {
+		game = new Game(1, 13);
+
+		for (int i = 0; i < dices.length; i++) {
+			this.dices[i] = game.getDice(i);
+		}
+
+	}
 
 	@FXML
 	private void saveValue(MouseEvent event){
@@ -103,12 +113,7 @@ public class mainController {
 
 	@FXML
 	private void rollDices_click(){
-		createDices();
-		diceIsCreated = true;
-		for(int i = 0; i < dices.length; i++) {
-			dices[i].roll();
-		}
-
+		game.roll();
 		setDiceImages();
 	}
 
@@ -140,19 +145,8 @@ public class mainController {
 			}
 		}
 
+
 	}// end method setDiceImages
-
-
-	@FXML
-	public void createDices(){
-		if(!diceIsCreated){
-			for (int i = 0; i < 5; i++) {
-				dices[i] = new Dice();
-				dices[i].roll();
-			}
-		}
-		setDiceImages();
-	}
 
 	public void setMainApp(Main main) {
 		this.main = main;

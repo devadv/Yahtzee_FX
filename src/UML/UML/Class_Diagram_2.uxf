@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>100</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Dobblesteen</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>100</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Game</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>40</x>
+      <y>100</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Speler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>0</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Yahtzee</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>0</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>ScoreFormulier</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>20</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>0</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>290</x>
+      <y>0</y>
+      <w>140</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>120.0;100.0;120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>170</y>
+      <w>380</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>Yahtzee
+--
+-rounds: int = 13
+-turns: int = 3
+-dices: int = 5
++int FULLHOUSE = 25
++int SMALLSTRAIGHT = 30
++int LARGESTRAIGHT = 40
++int YAHTZEE = 50
++int YAHTZEEBONUS = 100
+--
++Yahtzee()
++isFullHouse(Dice[]) : boolean
++isStraight(Dice[]) : boolean
++isSameDices(Dice[], int) : boolean
++countValueDices(Dice[], int) : int
++countAllDices(Dice[]) : int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>460</y>
+      <w>380</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>Game
+--
+-rounds : int
+-players : [] int
+-repeat : boolean
+-dices : [] Dice
+-numberOfThrows : int
+-yahtzee : Yahtzee
+-
+--
++Game(int rounds, int players)
++setPlayers(): [] int
++roll()
++start()
++playerTurn(Player)
++holdDices(Player)
++printDicesValue()
++reset()
++chooseScore(Player)
++executeScore(Player)
+addScore(Player, int)
+setDices(Dice[])
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>350</y>
+      <w>300</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Dice
+--
+-diceValue : int
+-random : Random
+-hold : boolean
+--
++Dice()
++roll()
++getValue() : int
++setValue(int value)
++setHold()
++isHold() : boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>170</y>
+      <w>380</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+-name : String
+-form : ScoreFormYahtzee
+--
++Player(String name)
++setName(String name
++getName() : String
++displayScoreForm()
++getScoreForm() : ScoreFormYahtzee form</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>20</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>100</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>290</x>
+      <y>100</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>560</y>
+      <w>300</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>ScoreFormYahtzee
+--
+-scorePosition : int[]
+-player Player
+--
++ScoreFormYahtzee(Player player)
++canAddScore(int score, int scorePosition)
++addScore(int score, int scorePositon)
++printScoreForm()
++printEndResult()
++getScorePosition(Dice[]) : int
++isOneToSevenFilled(Dice[]) : boolean
++setPrintScoreForm()
++isYahtzeeFilled() : boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -50,7 +50,7 @@ public class Main extends Application {
 
 			mainController controller = loader.getController();
 			controller.setMainApp(this);
-			controller.createDices();
+			controller.mainController();
 
 			primaryStage.show();
 		} catch (IOException e) {
