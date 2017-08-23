@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import application.controller.Yahtzee;
 import application.model.Dice;
+import application.model.Player;
+
 import javax.swing.JOptionPane;
 
 
