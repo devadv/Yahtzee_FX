@@ -40,7 +40,11 @@ public class mainController {
 
 	@FXML
 	private void saveValue(MouseEvent event){
-		System.out.println(event.getSource());
+		
+		if(event.getSource() == onesTxArea){
+			System.out.println("ones");
+			
+		}
 
 	}
 
@@ -113,7 +117,14 @@ public class mainController {
 
 	@FXML
 	private void rollDices_click(){
-		game.roll();
+
+		if(game.getNumberOfThrows()<4){
+			game.roll();
+			game.increaseNumberOfThrows();
+		}
+
+
+
 		setDiceImages();
 	}
 

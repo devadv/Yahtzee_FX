@@ -14,7 +14,7 @@ public class Game {
 	private int rounds;
 	private Player[] player;
 	private boolean repeat;
-	private int numberOfthrows = 0;
+	private int numberOfThrows = 0;
 	private Yahtzee yahtzee;
 	private boolean tries = true;
 	private boolean yahtzeeBonus = false;
@@ -70,7 +70,7 @@ public class Game {
 		repeat = true;
         int n = 0;
 
-		if(numberOfthrows == 3){
+		if(numberOfThrows == 3){
 		}
 
 		switch (n) {
@@ -95,10 +95,10 @@ public class Game {
 			printDicesValue();
 			break;
 		case 0:// roll
-			if(numberOfthrows < 3){
+			if(numberOfThrows < 3){
 				roll();
-				numberOfthrows++;
-				System.out.println("Throw " + numberOfthrows + " of "  + player.getName());
+				numberOfThrows++;
+				System.out.println("Throw " + numberOfThrows + " of "  + player.getName());
 				printDicesValue();
 			}else{
 				System.out.println("End of turn: you have to choose 10 to end turn");
@@ -133,7 +133,7 @@ public class Game {
 		for (int i = 0; i < dices.length; i++) {
 			dices[i].roll();
 		}
-		numberOfthrows++;
+		numberOfThrows++;
 	}
 
 	public void printDicesValue() {
@@ -336,9 +336,6 @@ public class Game {
 
 
 
-	public int getNumberOfThrows() {
-		return numberOfthrows;
-	}
 
 	public Dice getDice(int diceNumber) {
 		return dices[diceNumber];
@@ -347,5 +344,15 @@ public class Game {
 	public String getName() {
 		return name;
 	}
+
+	public int getNumberOfThrows() {
+		return numberOfThrows;
+	}
+
+	public void increaseNumberOfThrows() {
+		this.numberOfThrows++;
+	}
+
+
 
 }
