@@ -9,40 +9,41 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.mainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Controller">
    <children>
-      <Pane layoutX="3.0" layoutY="-2.0" prefHeight="600.0" prefWidth="1100.0">
+      <Pane layoutX="6.0" layoutY="6.0" prefHeight="600.0" prefWidth="1100.0">
          <children>
-            <Button fx:id="button_1" layoutX="40.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_1" layoutX="40.0" layoutY="170.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fx:id="dice_1_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
-            <Button fx:id="button_2" layoutX="140.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_2" layoutX="140.0" layoutY="170.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fx:id="dice_2_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
-            <Button fx:id="button_3" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_3" layoutX="240.0" layoutY="170.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fx:id="dice_3_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
-            <Button fx:id="button_4" layoutX="340.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_4" layoutX="340.0" layoutY="170.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fx:id="dice_4_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
-            <Button fx:id="button_5" layoutX="440.0" layoutY="60.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="button_5" layoutX="440.0" layoutY="170.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fx:id="dice_5_imageV" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
-            <Button fx:id="roll_Dices" layoutX="225.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#rollDices_click" prefHeight="50.0" prefWidth="100.0" text="Roll dices" />
+            <Button fx:id="roll_Dices" layoutX="225.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#rollDices_click" prefHeight="50.0" prefWidth="100.0" text="Roll dices" />
             <Label layoutX="722.0" layoutY="386.0" prefHeight="28.0" prefWidth="100.0" text="Grand total:" />
             <TextArea fx:id="grandTotalTxArea" editable="false" layoutX="850.0" layoutY="386.0" maxHeight="30.0" maxWidth="60.0" minHeight="20.0" minWidth="0.0" prefHeight="28.0" prefWidth="50.0" />
-            <GridPane layoutX="607.0" layoutY="35.0" prefHeight="327.0" prefWidth="176.0">
+            <GridPane fx:id="gridcolumn1" layoutX="607.0" layoutY="35.0" prefHeight="327.0" prefWidth="176.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="114.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.0" minWidth="10.0" prefWidth="34.0" />
@@ -116,6 +117,36 @@
                   <TextArea fx:id="totalDiceCombTxArea" editable="false" maxHeight="30.0" maxWidth="40.0" minHeight="20.0" minWidth="0.0" prefHeight="28.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                </children>
             </GridPane>
+            <Label layoutX="40.0" layoutY="93.0" text="Aantal keer gegooid:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="numberofthrowsLabel" layoutX="250.0" layoutY="95.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="65.0" text="Ronde:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="numberofroundsLabel" layoutX="108.0" layoutY="60.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="35.0" text="Speler:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="numberofplayerLabel" layoutX="110.0" layoutY="30.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

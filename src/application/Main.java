@@ -2,7 +2,7 @@ package application;
 
 import java.io.IOException;
 
-import application.controller.mainController;
+import application.controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -48,9 +48,9 @@ public class Main extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 
-			mainController controller = loader.getController();
+			Controller controller = loader.getController();
 			controller.setMainApp(this);
-			controller.mainController();
+			controller.start();
 
 			primaryStage.show();
 		} catch (IOException e) {

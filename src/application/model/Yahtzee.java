@@ -1,11 +1,10 @@
-package application.controller;
+package application.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import application.model.Dice;
 
 
 public class Yahtzee {
@@ -36,7 +35,7 @@ public class Yahtzee {
 	 * Full House: 25 punten voor 3 gelijke en één paar. (5 gelijke telt niet
 	 * als Full House, tenzij het vak Yahtzee reeds ingevuld is).
 	 */
-	public boolean isFullHouse(Dice[] dice) {
+	public static boolean isFullHouse(Dice[] dice) {
 
 		if(isSameDices(dice, 3) && isSameDices(dice, 2)){
 			return true;
@@ -56,9 +55,9 @@ public class Yahtzee {
 	 *
 	 * @param dices
 	 * @param streetLenght
-	 * @return true if it's a straight
+	 * @return true if it is a straight
 	 */
-	public boolean isStraight(Dice[] dices, int streetLenght) {
+	public static boolean isStraight(Dice[] dices, int streetLenght) {
 		List<Integer> list = new ArrayList<>(dices.length);
 		int successive = 0;
 		for(int i = 0; i < dices.length; i++){
@@ -96,7 +95,7 @@ public class Yahtzee {
 	 *
 	 */
 
-	public int countValueDices(Dice[] dice, int digit) {
+	public static int countValueDices(Dice[] dice, int digit) {
 		int total = 0;
 		for (int i = 0; i < dice.length; i++) {
 			if (dice[i].getValue() == digit) {
@@ -110,7 +109,7 @@ public class Yahtzee {
 	/*
 	 *
 	 */
-	public int countAllDices(Dice[] dice) {
+	public static int countAllDices(Dice[] dice) {
 		int total = 0;
 		for (int i = 0; i < dice.length; i++) {
 			total += dice[i].getValue();
@@ -119,7 +118,7 @@ public class Yahtzee {
 		return total;
 	}
 
-	public boolean isSameDices(Dice[] dice, int digitOfDice) {
+	public static boolean isSameDices(Dice[] dice, int digitOfDice) {
 		int[] n = new int[7];// contains dice digits 1 to 6 included
 
 		for (int i = 0; i < dice.length; i++) {
