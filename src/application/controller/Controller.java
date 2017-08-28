@@ -1,5 +1,7 @@
 package application.controller;
 
+import javax.swing.JOptionPane;
+
 import application.Main;
 import application.model.Dice;
 import application.model.Yahtzee;
@@ -30,7 +32,7 @@ public class Controller {
 	@FXML
 	private TextArea totalScoreTxArea, bonusTxArea , totalFacesTxArea, totalDiceCombTxArea, grandTotalTxArea;
 	@FXML
-	private GridPane gridcolumn1;
+	private GridPane gridcolumn1, gridcolumn2;
 	@FXML
 	private Label numberofthrowsLabel;
 	@FXML
@@ -41,121 +43,140 @@ public class Controller {
 	private int numberofrounds = 13;
 	private int numberofthrows = 0;
 	private int player = 1;
-	private int totalFaces;
+	private int totalFaces = 0;
 	private int totalDiceComb;
 	private Main main;
 	private Dice[] dices = new Dice[5];
-
-	public Controller() {
-
-	}
+	private ImageView[] imageView;
+	private ColorAdjust colorOnHold;
+	private ColorAdjust colorNotHold;
+	private boolean isSaved = false;
 
 	public void start() {
 
 		numberofroundsLabel.setText("" + numberofrounds);
 		numberofthrowsLabel.setText("" + numberofthrows);
 		numberofplayerLabel.setText("" + player);
+		colorOnHold = new ColorAdjust();
+		colorNotHold = new ColorAdjust();
+		imageView = new ImageView[5];
+		imageView[0] = dice_1_imageV;
+		imageView[1] = dice_2_imageV;
+		imageView[2] = dice_3_imageV;
+		imageView[3] = dice_4_imageV;
+		imageView[4] = dice_5_imageV;
 
 		for (int i = 0; i < dices.length; i++) {
 			dices[i] = new Dice();
 		}
-		rollDices_click();
-		setDiceImages();
+
+		for (int i = 0; i < imageView.length; i++) {
+			imageView[i].setImage(new Image("file:resources/images/dice.png"));
+		}
+
 	}
 
 	@FXML
 	private void saveValue(MouseEvent event) {
-
-		if (event.getSource() == onesTxArea) {
-			int value = Yahtzee.countValueDices(dices, 1);
-			onesTxArea.setText("" + value);
-			onesTxArea.setDisable(true);
-			totalFaces += value;
-			numberofthrows = 0;
-			reset();
-			rollDices_click();
-
-
-		}
-		if (event.getSource() == twosTxArea) {
-			int value = Yahtzee.countValueDices(dices, 2);
-			//twosTxArea.setText("" + value);
-
-			double layoutX = twosTxArea.getLayoutX();
-			double layoutY = twosTxArea.getLayoutY();
-			System.out.println("X: " +layoutX);
-			System.out.println("Y: " +layoutY);
-			Label twosTxLabel = new Label();
-			int index = gridcolumn1.getChildren().indexOf(twosTxArea);
-			System.out.println("Index"+ index);
-			gridcolumn1.getChildren().remove(index);
-			gridcolumn1.add(twosTxLabel, 1, 1);
-			twosTxLabel.setText(""+ value);
-
-
-			totalFaces += value;
-			numberofthrows = 0;
-			reset();
-			rollDices_click();
-
-		}
-		if (event.getSource() == threesTxArea) {
-			int value = Yahtzee.countValueDices(dices, 3);
-			threesTxArea.setText("" + value);
-			totalFaces += value;
-			numberofthrows = 0;
-			reset();
-			rollDices_click();
-
-		}
-		if (event.getSource() == foursTxArea) {
-			int value = Yahtzee.countValueDices(dices, 4);
-			foursTxArea.setText("" + value);
-			totalFaces += value;
-			numberofthrows = 0;
-			reset();
-			rollDices_click();
-
-		}
-		if (event.getSource() == fivesTxArea) {
-			int value = Yahtzee.countValueDices(dices, 5);
-			fivesTxArea.setText("" + value);
-			totalFaces += value;
-			numberofthrows = 0;
-			reset();
-			rollDices_click();
-
-		}
-		if (event.getSource() == sixesTxArea) {
-			int value = Yahtzee.countValueDices(dices, 6);
-			sixesTxArea.setText("" + value);
-			totalFaces += value;
-			numberofthrows = 0;
-			reset();
-			rollDices_click();
-
-		}
-		totalScoreTxArea.setText("" + totalFaces);
-
-		if (event.getSource() == threeOfAKindTxArea) {
-			if (Yahtzee.isSameDices(dices, 3)) {
-				int value = Yahtzee.countAllDices(dices);
-				threeOfAKindTxArea.setText("" + value);
-				totalDiceComb += value;
-				numberofthrows = 0;
-				reset();
-				rollDices_click();
+		if(isSaved == false){
+			
+			if (event.getSource() == onesTxArea) {
+				setOneToSixTxAreas(onesTxArea, 1);
 			}
-
+			else if (event.getSource() == twosTxArea) {
+				setOneToSixTxAreas(twosTxArea, 2);
+			}
+			else if (event.getSource() == threesTxArea) {
+				setOneToSixTxAreas(threesTxArea, 3);
+			}
+			else if (event.getSource() == foursTxArea) {
+				setOneToSixTxAreas(foursTxArea, 4);
+			}
+			else if (event.getSource() == fivesTxArea) {
+				setOneToSixTxAreas(fivesTxArea, 5);
+			}
+			else if (event.getSource() == sixesTxArea) {
+				setOneToSixTxAreas(sixesTxArea, 6);
+			}
+	
+			totalScoreTxArea.setText("" + totalFaces);
+			if(totalFaces >= 63){
+				bonusTxArea.setText("35");
+				totalFacesTxArea.setText( "" + (totalFaces + 35));
+			}
+	
+			if (event.getSource() == threeOfAKindTxArea) {
+				threeFourOfaKind(threeOfAKindTxArea, 3);
+			}
+			else if(event.getSource() == fourOfAKindTxArea){
+				threeFourOfaKind(fourOfAKindTxArea, 4);
+			}
+			else if(event.getSource() == fullHouseTxArea){
+				if(Yahtzee.isFullHouse(dices)){
+					Label label = new Label();
+					int index = gridcolumn2.getChildren().indexOf(fullHouseTxArea);
+					gridcolumn2.getChildren().remove(index);
+					gridcolumn2.add(label, 1, 2);
+					label.setText("" + 25);
+					totalDiceComb += 25;
+					numberofthrows = 0;
+					numberofthrowsLabel.setText("" + numberofthrows);
+					reset();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "This is not a fullhouse.");
+				}
+			}
+			else if(event.getSource() == smStraightTxArea){
+	
+			}
+			else if(event.getSource() == lgStraightTxArea){
+	
+			}
+			else if(event.getSource() == yahtzeeTxArea){
+	
+			}
+			
+			totalDiceCombTxArea.setText("" + totalDiceComb);
+			numberofrounds--;
+			numberofroundsLabel.setText("" + numberofrounds);
+			isSaved = true;
 		}
-		totalDiceCombTxArea.setText("" + totalDiceComb);
-		numberofrounds--;
-		numberofroundsLabel.setText("" + numberofrounds);
+	}
+
+	public void threeFourOfaKind(TextArea textArea, int numberOfKind) {
+		if (Yahtzee.amountOfSameDices(dices, numberOfKind) >= 3) {
+			int value = Yahtzee.countAllDices(dices);
+			Label label = new Label();
+			int index = gridcolumn2.getChildren().indexOf(textArea);
+			gridcolumn2.getChildren().remove(index);
+			gridcolumn2.add(label, 1, numberOfKind - 3);
+			label.setText("" + value);
+			totalDiceComb += value;
+			numberofthrows = 0;
+			numberofthrowsLabel.setText("" + numberofthrows);
+			reset();
+		}
+	}
+
+	public void setOneToSixTxAreas(TextArea txArea, int diceFace) {
+		int value = Yahtzee.countValueDices(dices, diceFace);
+
+		Label label = new Label();
+		int index = gridcolumn1.getChildren().indexOf(txArea);
+		gridcolumn1.getChildren().remove(index);
+		gridcolumn1.add(label, 1, diceFace - 1);
+		label.setText(""+ value);
+
+		totalFaces += value;
+		numberofthrows = 0;
+		numberofthrowsLabel.setText("" + numberofthrows);
+		reset();
 	}
 
 	@FXML
 	private void rollDices_click() {
-
+		isSaved = false;
 		if (numberofthrows < 3) {
 			for (int i = 0; i < dices.length; i++) {
 				dices[i].roll();
@@ -166,7 +187,6 @@ public class Controller {
 			setDiceImages();
 
 		}
-
 	}
 
 	public void reset() {
@@ -187,55 +207,35 @@ public class Controller {
 
 	@FXML
 	private void dice_click(ActionEvent event) {
-		ColorAdjust colorOnHold = new ColorAdjust();
-		ColorAdjust colorNotHold = new ColorAdjust();
+
+		if (event.getSource() == button_1) {
+			setColorHold(0);
+		}
+		else if (event.getSource() == button_2) {
+			setColorHold(1);
+		}
+		else if (event.getSource() == button_3) {
+			setColorHold(2);
+		}
+		else if (event.getSource() == button_4) {
+			setColorHold(3);
+		}
+		else if (event.getSource() == button_5) {
+			setColorHold(4);
+		}
+	}
+
+	public void setColorHold(int buttonNumber) {
 		colorOnHold.setBrightness(-0.5);
 		colorNotHold.setBrightness(0.0);
 
-		if (event.getSource() == button_1) {
-			dices[0].setHold();
-			if (dices[0].isHold()) {
-				dice_1_imageV.setEffect(colorOnHold);
-			} else {
-				dice_1_imageV.setEffect(colorNotHold);
-			}
+		dices[buttonNumber].setHold();
+		if (dices[buttonNumber].isHold()) {
+			imageView[buttonNumber].setEffect(colorOnHold);
+		} else {
+			imageView[buttonNumber].setEffect(colorNotHold);
 		}
 
-		if (event.getSource() == button_2) {
-			dices[1].setHold();
-			if (dices[1].isHold()) {
-				dice_2_imageV.setEffect(colorOnHold);
-			} else {
-				dice_2_imageV.setEffect(colorNotHold);
-			}
-		}
-
-		if (event.getSource() == button_3) {
-			dices[2].setHold();
-			if (dices[2].isHold()) {
-				dice_3_imageV.setEffect(colorOnHold);
-			} else {
-				dice_3_imageV.setEffect(colorNotHold);
-			}
-		}
-
-		if (event.getSource() == button_4) {
-			dices[3].setHold();
-			if (dices[3].isHold()) {
-				dice_4_imageV.setEffect(colorOnHold);
-			} else {
-				dice_4_imageV.setEffect(colorNotHold);
-			}
-		}
-
-		if (event.getSource() == button_5) {
-			dices[4].setHold();
-			if (dices[4].isHold()) {
-				dice_5_imageV.setEffect(colorOnHold);
-			} else {
-				dice_5_imageV.setEffect(colorNotHold);
-			}
-		}
 	}
 
 	@FXML
@@ -252,13 +252,6 @@ public class Controller {
 		image[3] = new Image("file:resources/images/dice_4.png");
 		image[4] = new Image("file:resources/images/dice_5.png");
 		image[5] = new Image("file:resources/images/dice_6.png");
-
-		ImageView[] imageView = new ImageView[5];
-		imageView[0] = dice_1_imageV;
-		imageView[1] = dice_2_imageV;
-		imageView[2] = dice_3_imageV;
-		imageView[3] = dice_4_imageV;
-		imageView[4] = dice_5_imageV;
 
 		for (int i = 0; i < imageView.length; i++) {
 			if (dices[i].isHold() == false) {

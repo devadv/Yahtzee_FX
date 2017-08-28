@@ -118,18 +118,33 @@ public class Yahtzee {
 		return total;
 	}
 
-	public static boolean isSameDices(Dice[] dice, int digitOfDice) {
+	public static boolean isSameDices(Dice[] dice, int amoutOfDices) {
 		int[] n = new int[7];// contains dice digits 1 to 6 included
-
+		
 		for (int i = 0; i < dice.length; i++) {
 			n[dice[i].getValue()]++;
 		}
 
 		for (int j = 1; j < n.length; j++) {
-			if (n[j] == digitOfDice) {
+			if (n[j] == amoutOfDices) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public static int amountOfSameDices(Dice[] dice, int amoutOfDices) {
+		int[] n = new int[7];// contains dice digits 1 to 6 included
+		
+		for (int i = 0; i < dice.length; i++) {
+			n[dice[i].getValue()]++;
+		}
+
+		int a = n[1];
+		for (int i = 2; i < n.length; i++) {
+			if(n[i] > a)
+				a = n[i];
+		}
+		return a;
 	}
 }
