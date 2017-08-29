@@ -1,5 +1,6 @@
 package application.controller;
 
+
 import javax.swing.JOptionPane;
 
 import application.Main;
@@ -15,6 +16,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class Controller {
 	@FXML
@@ -40,6 +47,7 @@ public class Controller {
 	@FXML
 	private Label numberofplayerLabel;
 
+
 	private int numberofrounds = 13;
 	private int numberofthrows = 0;
 	private int player = 1;
@@ -53,6 +61,7 @@ public class Controller {
 	private boolean isSaved = false;
 
 	public void start() {
+
 
 		numberofroundsLabel.setText("" + numberofrounds);
 		numberofthrowsLabel.setText("" + numberofthrows);
@@ -79,7 +88,7 @@ public class Controller {
 	@FXML
 	private void saveValue(MouseEvent event) {
 		if(isSaved == false){
-			
+
 			if (event.getSource() == onesTxArea) {
 				setOneToSixTxAreas(onesTxArea, 1);
 			}
@@ -98,13 +107,13 @@ public class Controller {
 			else if (event.getSource() == sixesTxArea) {
 				setOneToSixTxAreas(sixesTxArea, 6);
 			}
-	
+
 			totalScoreTxArea.setText("" + totalFaces);
 			if(totalFaces >= 63){
 				bonusTxArea.setText("35");
 				totalFacesTxArea.setText( "" + (totalFaces + 35));
 			}
-	
+
 			if (event.getSource() == threeOfAKindTxArea) {
 				threeFourOfaKind(threeOfAKindTxArea, 3);
 			}
@@ -128,15 +137,43 @@ public class Controller {
 				}
 			}
 			else if(event.getSource() == smStraightTxArea){
-	
+				if(Yahtzee.isStraight(dices, 4)){
+					Label label = new Label();
+					int index = gridcolumn2.getChildren().indexOf(smStraightTxArea);
+					gridcolumn2.getChildren().remove(index);
+					gridcolumn2.add(label, 1, 3);
+					label.setText("" + 30);
+					totalDiceComb += 30;
+					numberofthrows = 0;
+					numberofthrowsLabel.setText("" + numberofthrows);
+					reset();
+
+				}else{
+					JOptionPane.showMessageDialog(null, "This is not a small straight.");
+				}
+
 			}
 			else if(event.getSource() == lgStraightTxArea){
-	
+				if(Yahtzee.isStraight(dices, 5)){
+					Label label = new Label();
+					int index = gridcolumn2.getChildren().indexOf(lgStraightTxArea);
+					gridcolumn2.getChildren().remove(index);
+					gridcolumn2.add(label, 1, 4);
+					label.setText("" + 40);
+					totalDiceComb += 40;
+					numberofthrows = 0;
+					numberofthrowsLabel.setText("" + numberofthrows);
+					reset();
+
+				}else{
+					JOptionPane.showMessageDialog(null, "This is not a large straight.");
+				}
+
 			}
 			else if(event.getSource() == yahtzeeTxArea){
-	
+
 			}
-			
+
 			totalDiceCombTxArea.setText("" + totalDiceComb);
 			numberofrounds--;
 			numberofroundsLabel.setText("" + numberofrounds);
