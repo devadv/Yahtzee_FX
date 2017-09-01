@@ -1,8 +1,5 @@
 package application.controller;
 
-
-import javax.swing.JOptionPane;
-
 import application.Main;
 import application.model.Dice;
 import application.model.Yahtzee;
@@ -53,12 +50,12 @@ public class Controller {
 	private ImageView[] imageView;
 	private ColorAdjust colorOnHold;
 	private ColorAdjust colorNotHold;
+	FillScoreTabel fillScoreTabel;
 	private boolean isSaved = false;
-	private boolean showInputOutput = true;
 
 	public void start() {
 
-
+		fillScoreTabel = new FillScoreTabel();
 		numberofroundsLabel.setText("" + numberofrounds);
 		numberofthrowsLabel.setText("" + numberofthrows);
 		numberofplayerLabel.setText("" + player);
@@ -86,28 +83,28 @@ public class Controller {
 		if(isSaved == false){
 
 			if (event.getSource() == onesTxArea) {
-				containDiceFace(onesTxArea, 1);
+				setOneToSixTxAreas(onesTxArea, 1);
 			}
 			else if (event.getSource() == twosTxArea) {
-				containDiceFace(twosTxArea, 2);
+				setOneToSixTxAreas(twosTxArea, 2);
 			}
 			else if (event.getSource() == threesTxArea) {
-				containDiceFace(threesTxArea, 3);
+				setOneToSixTxAreas(threesTxArea, 3);
 			}
 			else if (event.getSource() == foursTxArea) {
-				containDiceFace(foursTxArea, 4);
+				setOneToSixTxAreas(foursTxArea, 4);
 			}
 			else if (event.getSource() == fivesTxArea) {
-				containDiceFace(fivesTxArea, 5);
+				setOneToSixTxAreas(fivesTxArea, 5);
 			}
 			else if (event.getSource() == sixesTxArea) {
-				containDiceFace(sixesTxArea, 6);
+				setOneToSixTxAreas(sixesTxArea, 6);
 			}
 
 			if(totalFaces != 0){
 				totalScoreTxArea.setText("" + totalFaces);
 			}
-			
+
 			if(totalFaces >= 63){
 				bonusTxArea.setText("35");
 				totalFacesTxArea.setText( "" + (totalFaces + 35));
@@ -175,20 +172,14 @@ public class Controller {
 			if(totalDiceComb != 0){
 				totalDiceCombTxArea.setText("" + totalDiceComb);
 			}
-			
+
 			numberofrounds--;
 			numberofroundsLabel.setText("" + numberofrounds);
-			
+
 		}
 	}
-	
-	public void containDiceFace(TextArea txArea, int face) {
-		if(Yahtzee.containDiceFace(dices, face)){
-			setOneToSixTxAreas(txArea, face);
-			isSaved = true;
-		}
-	}
-	
+
+
 	public void threeFourOfaKind(TextArea textArea, int numberOfKind) {
 		if (Yahtzee.amountOfSameDices(dices, numberOfKind) >= numberOfKind) {
 			int value = Yahtzee.countAllDices(dices);
@@ -207,17 +198,19 @@ public class Controller {
 
 	public void setOneToSixTxAreas(TextArea txArea, int diceFace) {
 		int value = Yahtzee.countValueDices(dices, diceFace);
+		if(Yahtzee.containDiceFace(dices, diceFace)){
+			Label label = new Label();
+			int index = gridcolumn1.getChildren().indexOf(txArea);
+			gridcolumn1.getChildren().remove(index);
+			gridcolumn1.add(label, 1, diceFace - 1);
+			label.setText("" + value);
 
-		Label label = new Label();
-		int index = gridcolumn1.getChildren().indexOf(txArea);
-		gridcolumn1.getChildren().remove(index);
-		gridcolumn1.add(label, 1, diceFace - 1);
-		label.setText(""+ value);
-
-		totalFaces += value;
-		numberofthrows = 0;
-		numberofthrowsLabel.setText("" + numberofthrows);
-		reset();
+			totalFaces += value;
+			numberofthrows = 0;
+			numberofthrowsLabel.setText("" + numberofthrows);
+			reset();
+			isSaved = true;
+		}
 	}
 
 	@FXML
@@ -229,13 +222,13 @@ public class Controller {
 			}
 			numberofthrows++;
 			numberofthrowsLabel.setText(numberofthrows + "");
-			
+
 			dices[0].setValue(1);
 			dices[1].setValue(1);
 			dices[2].setValue(1);
 			dices[3].setValue(1);
 			dices[4].setValue(1);
-			
+
 			setDiceImages();
 
 		}
