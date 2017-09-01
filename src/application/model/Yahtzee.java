@@ -120,7 +120,7 @@ public class Yahtzee {
 
 	public static boolean isSameDices(Dice[] dice, int amoutOfDices) {
 		int[] n = new int[7];// contains dice digits 1 to 6 included
-		
+
 		for (int i = 0; i < dice.length; i++) {
 			n[dice[i].getValue()]++;
 		}
@@ -132,10 +132,10 @@ public class Yahtzee {
 		}
 		return false;
 	}
-	
+
 	public static int amountOfSameDices(Dice[] dice, int amoutOfDices) {
 		int[] n = new int[7];// contains dice digits 1 to 6 included
-		
+
 		for (int i = 0; i < dice.length; i++) {
 			n[dice[i].getValue()]++;
 		}
@@ -147,4 +147,15 @@ public class Yahtzee {
 		}
 		return a;
 	}
+
+	public static boolean containDiceFace(Dice[] dices, int faceNumber) {
+		for (int i = 0; i < dices.length; i++) {
+			if(dices[i].getValue() == faceNumber){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }

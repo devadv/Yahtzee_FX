@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Controller">
    <children>
-      <Pane layoutX="6.0" layoutY="6.0" prefHeight="600.0" prefWidth="1100.0">
+      <Pane prefHeight="600.0" prefWidth="1100.0">
          <children>
             <Button fx:id="button_1" layoutX="40.0" layoutY="170.0" mnemonicParsing="false" onAction="#dice_click" prefHeight="50.0" prefWidth="50.0">
                <graphic>
@@ -127,7 +127,7 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="40.0" layoutY="65.0" text="Round:">
+            <Label layoutX="40.0" layoutY="65.0" text="Rounds:">
                <font>
                   <Font size="19.0" />
                </font>
@@ -137,12 +137,12 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="39.0" layoutY="35.0" text="Player:">
+            <Label layoutX="39.0" layoutY="35.0" text="Player:" visible="false">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label fx:id="numberofplayerLabel" layoutX="115.0" layoutY="35.0" minWidth="20.0">
+            <Label fx:id="numberofplayerLabel" layoutX="115.0" layoutY="35.0" minWidth="20.0" visible="false">
                <font>
                   <Font size="19.0" />
                </font>

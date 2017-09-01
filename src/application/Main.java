@@ -29,10 +29,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			this.primaryStage = primaryStage;
-			/*BorderPane root = new BorderPane();
-			Scene scene = new Scene(group,1100,600);
+			BorderPane root = new BorderPane();
+			Scene scene = new Scene(root,1100,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);*/
+			primaryStage.setScene(scene);
 			primaryStage.setTitle("Yahtzee");
 			primaryStage.show();
 		} catch(Exception e) {
@@ -59,7 +59,7 @@ public class Main extends Application {
 			text.setFill(Color.BROWN);
 			text.setStrokeWidth(2);
 			text.setStroke(Color.BLUE);
-			text.setText("YATHZEE GAME");
+			text.setText("YAHTZEE GAME");
 
 			Text text1 = new Text();
 			text1.setFont(Font.font("verdana" , FontWeight.BOLD , FontPosture.REGULAR , 20));

@@ -16,12 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+
 
 public class Controller {
 	@FXML
@@ -59,6 +54,7 @@ public class Controller {
 	private ColorAdjust colorOnHold;
 	private ColorAdjust colorNotHold;
 	private boolean isSaved = false;
+	private boolean showInputOutput = true;
 
 	public void start() {
 
@@ -90,25 +86,28 @@ public class Controller {
 		if(isSaved == false){
 
 			if (event.getSource() == onesTxArea) {
-				setOneToSixTxAreas(onesTxArea, 1);
+				containDiceFace(onesTxArea, 1);
 			}
 			else if (event.getSource() == twosTxArea) {
-				setOneToSixTxAreas(twosTxArea, 2);
+				containDiceFace(twosTxArea, 2);
 			}
 			else if (event.getSource() == threesTxArea) {
-				setOneToSixTxAreas(threesTxArea, 3);
+				containDiceFace(threesTxArea, 3);
 			}
 			else if (event.getSource() == foursTxArea) {
-				setOneToSixTxAreas(foursTxArea, 4);
+				containDiceFace(foursTxArea, 4);
 			}
 			else if (event.getSource() == fivesTxArea) {
-				setOneToSixTxAreas(fivesTxArea, 5);
+				containDiceFace(fivesTxArea, 5);
 			}
 			else if (event.getSource() == sixesTxArea) {
-				setOneToSixTxAreas(sixesTxArea, 6);
+				containDiceFace(sixesTxArea, 6);
 			}
 
-			totalScoreTxArea.setText("" + totalFaces);
+			if(totalFaces != 0){
+				totalScoreTxArea.setText("" + totalFaces);
+			}
+			
 			if(totalFaces >= 63){
 				bonusTxArea.setText("35");
 				totalFacesTxArea.setText( "" + (totalFaces + 35));
@@ -131,9 +130,7 @@ public class Controller {
 					numberofthrows = 0;
 					numberofthrowsLabel.setText("" + numberofthrows);
 					reset();
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "This is not a fullhouse.");
+					isSaved = true;
 				}
 			}
 			else if(event.getSource() == smStraightTxArea){
@@ -147,11 +144,8 @@ public class Controller {
 					numberofthrows = 0;
 					numberofthrowsLabel.setText("" + numberofthrows);
 					reset();
-
-				}else{
-					JOptionPane.showMessageDialog(null, "This is not a small straight.");
+					isSaved = true;
 				}
-
 			}
 			else if(event.getSource() == lgStraightTxArea){
 				if(Yahtzee.isStraight(dices, 5)){
@@ -164,25 +158,39 @@ public class Controller {
 					numberofthrows = 0;
 					numberofthrowsLabel.setText("" + numberofthrows);
 					reset();
-
-				}else{
-					JOptionPane.showMessageDialog(null, "This is not a large straight.");
+					isSaved = true;
 				}
-
 			}
 			else if(event.getSource() == yahtzeeTxArea){
-
+				if(Yahtzee.isSameDices(dices, 5)){
+					yahtzeeTxArea.setText("50");
+					totalDiceComb += 50;
+					numberofthrows = 0;
+					numberofthrowsLabel.setText("" + numberofthrows);
+					reset();
+				}
+				isSaved = true;
 			}
 
-			totalDiceCombTxArea.setText("" + totalDiceComb);
+			if(totalDiceComb != 0){
+				totalDiceCombTxArea.setText("" + totalDiceComb);
+			}
+			
 			numberofrounds--;
 			numberofroundsLabel.setText("" + numberofrounds);
+			
+		}
+	}
+	
+	public void containDiceFace(TextArea txArea, int face) {
+		if(Yahtzee.containDiceFace(dices, face)){
+			setOneToSixTxAreas(txArea, face);
 			isSaved = true;
 		}
 	}
-
+	
 	public void threeFourOfaKind(TextArea textArea, int numberOfKind) {
-		if (Yahtzee.amountOfSameDices(dices, numberOfKind) >= 3) {
+		if (Yahtzee.amountOfSameDices(dices, numberOfKind) >= numberOfKind) {
 			int value = Yahtzee.countAllDices(dices);
 			Label label = new Label();
 			int index = gridcolumn2.getChildren().indexOf(textArea);
@@ -193,6 +201,7 @@ public class Controller {
 			numberofthrows = 0;
 			numberofthrowsLabel.setText("" + numberofthrows);
 			reset();
+			isSaved = true;
 		}
 	}
 
@@ -220,7 +229,13 @@ public class Controller {
 			}
 			numberofthrows++;
 			numberofthrowsLabel.setText(numberofthrows + "");
-
+			
+			dices[0].setValue(1);
+			dices[1].setValue(1);
+			dices[2].setValue(1);
+			dices[3].setValue(1);
+			dices[4].setValue(1);
+			
 			setDiceImages();
 
 		}
