@@ -44,6 +44,10 @@ public class Controller {
 	private int numberofthrows = 0;
 	private int player = 1;
 	private int totalFaces = 0;
+	private int bonus = 35;
+	private int yahtzeeBonus = 100;
+	private int amountYahtzeeBonuses = 0;
+	private int yahtzee = 0;
 	private int totalDiceComb;
 	private Main main;
 	private Dice[] dices = new Dice[5];
@@ -106,9 +110,16 @@ public class Controller {
 			}
 
 			if(totalFaces >= 63){
-				bonusTxArea.setText("35");
-				totalFacesTxArea.setText( "" + (totalFaces + 35));
+				bonusTxArea.setText("" + bonus);
+				if(numberofrounds == 0){
+					totalFaces += bonus;
+				}
 			}
+
+			if(totalFaces != 0){
+				totalFacesTxArea.setText("" + totalFaces);
+			}
+
 
 			if (event.getSource() == threeOfAKindTxArea) {
 				threeFourOfaKind(threeOfAKindTxArea, 3);
@@ -160,12 +171,35 @@ public class Controller {
 			}
 			else if(event.getSource() == yahtzeeTxArea){
 				if(Yahtzee.isSameDices(dices, 5)){
+
 					yahtzeeTxArea.setText("50");
-					totalDiceComb += 50;
+					if(yahtzee >= 1){
+						amountYahtzeeBonuses += 100;
+						yahtzeeBonusTxArea.setText("" + amountYahtzeeBonuses);
+						totalDiceComb += yahtzeeBonus;
+					}
+					if(yahtzee < 1){
+						totalDiceComb += 50;
+					}
+
 					numberofthrows = 0;
 					numberofthrowsLabel.setText("" + numberofthrows);
 					reset();
 				}
+				yahtzee++;
+				isSaved = true;
+			}
+			else if(event.getSource() == chanceTxArea){
+				int value = Yahtzee.countAllDices(dices);
+				Label label = new Label();
+				int index = gridcolumn2.getChildren().indexOf(chanceTxArea);
+				gridcolumn2.getChildren().remove(index);
+				gridcolumn2.add(label, 1, 6);
+				label.setText("" + value);
+				totalDiceComb += value;
+				numberofthrows = 0;
+				numberofthrowsLabel.setText("" + numberofthrows);
+				reset();
 				isSaved = true;
 			}
 
@@ -176,6 +210,9 @@ public class Controller {
 			numberofrounds--;
 			numberofroundsLabel.setText("" + numberofrounds);
 
+			if(numberofrounds == 0){
+				grandTotalTxArea.setText("" + total);
+			}
 		}
 	}
 
@@ -198,19 +235,18 @@ public class Controller {
 
 	public void setOneToSixTxAreas(TextArea txArea, int diceFace) {
 		int value = Yahtzee.countValueDices(dices, diceFace);
-		if(Yahtzee.containDiceFace(dices, diceFace)){
-			Label label = new Label();
-			int index = gridcolumn1.getChildren().indexOf(txArea);
-			gridcolumn1.getChildren().remove(index);
-			gridcolumn1.add(label, 1, diceFace - 1);
-			label.setText("" + value);
 
-			totalFaces += value;
-			numberofthrows = 0;
-			numberofthrowsLabel.setText("" + numberofthrows);
-			reset();
-			isSaved = true;
-		}
+		Label label = new Label();
+		int index = gridcolumn1.getChildren().indexOf(txArea);
+		gridcolumn1.getChildren().remove(index);
+		gridcolumn1.add(label, 1, diceFace - 1);
+		label.setText("" + value);
+
+		totalFaces += value;
+		numberofthrows = 0;
+		numberofthrowsLabel.setText("" + numberofthrows);
+		reset();
+		isSaved = true;
 	}
 
 	@FXML
@@ -223,15 +259,31 @@ public class Controller {
 			numberofthrows++;
 			numberofthrowsLabel.setText(numberofthrows + "");
 
-			dices[0].setValue(1);
-			dices[1].setValue(1);
-			dices[2].setValue(1);
-			dices[3].setValue(1);
-			dices[4].setValue(1);
-
+			dices[0].setValue(6);
+			dices[1].setValue(6);
+			dices[2].setValue(6);
+			dices[3].setValue(6);
+			dices[4].setValue(6);
+			setValuesInTextAreas();
 			setDiceImages();
 
 		}
+	}
+
+	public void setValuesInTextAreas() {
+		onesTxArea.setText("" + fillScoreTabel.getOnes(dices));
+		twosTxArea.setText("" + fillScoreTabel.getTwos(dices));
+		threesTxArea.setText("" + fillScoreTabel.getThrees(dices));
+		foursTxArea.setText("" + fillScoreTabel.getFours(dices));
+		fivesTxArea.setText("" + fillScoreTabel.getFives(dices));
+		sixesTxArea.setText("" + fillScoreTabel.getSixes(dices));
+		threeOfAKindTxArea.setText("" + fillScoreTabel.getThreeOfaKind(dices));
+		fourOfAKindTxArea.setText("" + fillScoreTabel.getFourOfaKind(dices));
+		fullHouseTxArea.setText("" + fillScoreTabel.getFullHouse(dices));
+		smStraightTxArea.setText("" + fillScoreTabel.getSmallStraight(dices));
+		lgStraightTxArea.setText("" + fillScoreTabel.getLargeStraight(dices));
+		yahtzeeTxArea.setText("" + fillScoreTabel.getYahtzee(dices));
+		chanceTxArea.setText("" + fillScoreTabel.getChange(dices));
 	}
 
 	public void reset() {
@@ -247,6 +299,20 @@ public class Controller {
 		dice_3_imageV.setEffect(colorNotHold);
 		dice_4_imageV.setEffect(colorNotHold);
 		dice_5_imageV.setEffect(colorNotHold);
+
+		onesTxArea.setText("");
+		twosTxArea.setText("");
+		threesTxArea.setText("");
+		foursTxArea.setText("");
+		fivesTxArea.setText("");
+		sixesTxArea.setText("");
+		threeOfAKindTxArea.setText("");
+		fourOfAKindTxArea.setText("");
+		fullHouseTxArea.setText("");
+		smStraightTxArea.setText("");
+		lgStraightTxArea.setText("");
+		yahtzeeTxArea.setText("");
+		chanceTxArea.setText("");
 
 	}
 

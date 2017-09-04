@@ -1,34 +1,108 @@
 package application.controller;
 
 import application.model.Dice;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+import application.model.Yahtzee;
 
 public class FillScoreTabel {
-	int dice_1 = 0;
-	int dice_2 = 0;
-	int dice_3 = 0;
-	int dice_4 = 0;
-	int dice_5 = 0;
 
-	@FXML
-	private TextArea onesTxArea, twosTxArea, threesTxArea, foursTxArea, fivesTxArea, sixesTxArea;
-
-	public void calculateDiceCombination(Dice[] dices) {
-
-		dice_1 = dices[0].getValue();
-		dice_2 = dices[1].getValue();
-		dice_3 = dices[2].getValue();
-		dice_4 = dices[3].getValue();
-		dice_5 = dices[4].getValue();
+	public final int FULLHOUSE = 25;
+	public final int SMALLSTRAIGHT = 30;
+	public final int LARGESTRAIGHT = 40;
+	public final int YAHTZEE = 50;
 
 
+	public int getOnes(Dice[] dices){
+		return calculateOnesToSixes(dices, 1);
+	}
 
-	}// end method calculateDiceCombination
+	public int getTwos(Dice[] dices){
+		return calculateOnesToSixes(dices, 2);
+	}
 
+	public int getThrees(Dice[] dices){
+		return calculateOnesToSixes(dices, 3);
+	}
 
-	public int getOnesTxArea(){
+	public int getFours(Dice[] dices){
+		return calculateOnesToSixes(dices, 4);
+	}
+
+	public int getFives(Dice[] dices){
+		return calculateOnesToSixes(dices, 5);
+	}
+
+	public int getSixes(Dice[] dices){
+		return calculateOnesToSixes(dices, 6);
+	}
+
+	public int calculateOnesToSixes(Dice[] dices, int diceFace) {
+		int total = 0;
+
+		for (int i = 0; i < dices.length; i++) {
+			if(dices[i].getValue() == diceFace){
+				total += dices[i].getValue();
+			}
+		}
+		return total;
+	}
+
+	public int getThreeOfaKind(Dice[] dices) {
+		return isThreeOrFourofKind(dices, 3);
+	}
+
+	public int getFourOfaKind(Dice[] dices) {
+		return isThreeOrFourofKind(dices, 4);
+	}
+
+	public int isThreeOrFourofKind(Dice[] dices, int amount) {
+		int[] n = new int[6];
+
+		for (int i = 0; i < dices.length; i++) {
+			n[dices[i].getValue() - 1] ++;
+		}
+
+		int total = 0;
+
+		for (int k = 0; k < n.length; k++) {
+			if(n[k] >= amount){
+				total = Yahtzee.countAllDices(dices);
+				break;
+			}
+		}
+
+		return total;
+	}
+
+	public int getFullHouse(Dice[] dices) {
+		if( Yahtzee.isFullHouse(dices)){
+			return FULLHOUSE;
+		}
 		return 0;
+	}
+
+	public int getSmallStraight(Dice[] dices) {
+		if(Yahtzee.isStraight(dices, 4)){
+			return SMALLSTRAIGHT;
+		}
+		return 0;
+	}
+
+	public int getLargeStraight(Dice[] dices) {
+		if(Yahtzee.isStraight(dices, 5)){
+			return LARGESTRAIGHT;
+		}
+		return 0;
+	}
+
+	public int getYahtzee(Dice[] dices) {
+		if(Yahtzee.isSameDices(dices, 5)){
+			return YAHTZEE;
+		}
+		return 0;
+	}
+
+	public int getChange(Dice[] dices) {
+		return Yahtzee.countAllDices(dices);
 	}
 
 }// end class FillScoreTabel
