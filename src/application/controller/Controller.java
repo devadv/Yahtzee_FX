@@ -52,7 +52,7 @@ public class Controller {
 	private int bonus = 35;
 	private int yahtzeeBonus = 100;
 	private int amountYahtzeeBonuses = 0;
-	private int yahtzee = 0;
+	private boolean isYahtzeeFilled;
 	private int totalDiceComb;
 	private Main main;
 	private Dice[] dices = new Dice[5];
@@ -63,6 +63,7 @@ public class Controller {
 	private boolean isSaved = false;
 	private Alert alert;
 	private Optional<ButtonType> result;
+	private boolean oneIsFilled, twoIsFille, threeIsFilled, fourIsFilled, fiveIsFilled, sixIsFilled;
 
 	public void start() {
 		fillScoreTabel = new FillScoreTabel();
@@ -131,13 +132,13 @@ public class Controller {
 
 
 			if (event.getSource() == threeOfAKindTxArea) {
-				threeFourOfaKind(threeOfAKindTxArea, 3);
+				threeFourOfaKind(threeOfAKindTxArea, 3, event);
 			}
 			else if(event.getSource() == fourOfAKindTxArea){
-				threeFourOfaKind(fourOfAKindTxArea, 4);
+				threeFourOfaKind(fourOfAKindTxArea, 4, event);
 			}
 			else if(event.getSource() == fullHouseTxArea){
-				if(fullHouseTxArea.getText().contains("0") == false){
+				if(fullHouseTxArea.getText().equals("0") == false){
 					Label label = new Label();
 					int index = gridcolumn2.getChildren().indexOf(fullHouseTxArea);
 					gridcolumn2.getChildren().remove(index);
@@ -166,7 +167,7 @@ public class Controller {
 				}
 			}
 			else if(event.getSource() == smStraightTxArea){
-				if(smStraightTxArea.getText().contains("0") == false){
+				if(smStraightTxArea.getText().equals("30")){
 					Label label = new Label();
 					int index = gridcolumn2.getChildren().indexOf(smStraightTxArea);
 					gridcolumn2.getChildren().remove(index);
@@ -195,7 +196,7 @@ public class Controller {
 				}
 			}
 			else if(event.getSource() == lgStraightTxArea){
-				if(lgStraightTxArea.getText().contains("0") == false){
+				if(lgStraightTxArea.getText().equals("40")){
 					Label label = new Label();
 					int index = gridcolumn2.getChildren().indexOf(lgStraightTxArea);
 					gridcolumn2.getChildren().remove(index);
@@ -224,28 +225,39 @@ public class Controller {
 				}
 			}
 			else if(event.getSource() == yahtzeeTxArea){
-				if(yahtzeeTxArea.getText().contains("0") == false){
-					if(yahtzee >= 1){
+
+				if(yahtzeeTxArea.getText().equals("50") || yahtzeeTxArea.getText().equals(" ") == false){
+					if(isYahtzeeFilled){
 						amountYahtzeeBonuses += 100;
 						yahtzeeBonusTxArea.setText("" + amountYahtzeeBonuses);
 						totalDiceComb += yahtzeeBonus;
+						yahtzeeTxArea.setText(" ");
+						alert = new Alert(AlertType.CONFIRMATION);
+						alert.setTitle("");
+						alert.setContentText("Fill score in one to six box too (if empty).");
+						alert.show();
+						//
 					}
-					if(yahtzee < 1){
+					if(isYahtzeeFilled == false){
 						totalDiceComb += 50;
-					}
-					numberofthrows = 0;
-					numberofthrowsLabel.setText("" + numberofthrows);
-					reset();
-					yahtzee++;
-					isSaved = true;
-				}
-				else{
-					result = alert.showAndWait();
-					if(result.get() == ButtonType.OK){
 						numberofthrows = 0;
 						numberofthrowsLabel.setText("" + numberofthrows);
 						reset();
-						yahtzee++;
+						isSaved = true;
+						isYahtzeeFilled = true;
+					}
+				}
+				else if(yahtzeeTxArea.getText().equals(" ") == false){
+					result = alert.showAndWait();
+					if(result.get() == ButtonType.OK){
+						Label label = new Label();
+						int index = gridcolumn2.getChildren().indexOf(yahtzeeTxArea);
+						gridcolumn2.getChildren().remove(index);
+						gridcolumn2.add(label, 1, 5);
+						label.setText("" + 0);
+						numberofthrows = 0;
+						numberofthrowsLabel.setText("" + numberofthrows);
+						reset();
 						isSaved = true;
 					}
 				}
@@ -262,7 +274,7 @@ public class Controller {
 				numberofthrowsLabel.setText("" + numberofthrows);
 				reset();
 				isSaved = true;
-			}
+				}
 
 			if(totalDiceComb != 0){
 				totalDiceCombTxArea.setText("" + totalDiceComb);
@@ -274,39 +286,101 @@ public class Controller {
 			if(numberofrounds == 0){
 				grandTotalTxArea.setText("" + (totalFaces + totalDiceComb));
 			}
-		}
-	}
+		}// end if
 
-	public void threeFourOfaKind(TextArea textArea, int numberOfKind) {
-		if (Yahtzee.amountOfSameDices(dices, numberOfKind) >= numberOfKind) {
-			int value = Yahtzee.countAllDices(dices);
-			Label label = new Label();
-			int index = gridcolumn2.getChildren().indexOf(textArea);
-			gridcolumn2.getChildren().remove(index);
-			gridcolumn2.add(label, 1, numberOfKind - 3);
-			label.setText("" + value);
-			totalDiceComb += value;
-			numberofthrows = 0;
-			numberofthrowsLabel.setText("" + numberofthrows);
-			reset();
-			isSaved = true;
+		if(isYahtzeeFilled){
+			fillScoreTabel.setYahtzeeIsFilled(true);
+		}
+	}// end method saveValue
+
+	public void threeFourOfaKind(TextArea textArea, int numberOfKind, MouseEvent event) {
+		if(textArea.getText().contains("0") == false){
+			if(fillScoreTabel.isThreeOrFourofKind(dices, numberOfKind) >= 3) {
+				int value = Yahtzee.countAllDices(dices);
+				Label label = new Label();
+				int index = gridcolumn2.getChildren().indexOf(textArea);
+				gridcolumn2.getChildren().remove(index);
+				gridcolumn2.add(label, 1, numberOfKind - 3);
+				label.setText("" + value);
+				totalDiceComb += value;
+				numberofthrows = 0;
+				numberofthrowsLabel.setText("" + numberofthrows);
+				reset();
+				isSaved = true;
+			}
+		}
+		else{
+			result = alert.showAndWait();
+			if(result.get() == ButtonType.OK){
+				int value = 0;
+				Label label = new Label();
+				int index = gridcolumn2.getChildren().indexOf(textArea);
+				gridcolumn2.getChildren().remove(index);
+				gridcolumn2.add(label, 1, numberOfKind - 3);
+				label.setText("" + value);
+				totalDiceComb += value;
+				numberofthrows = 0;
+				numberofthrowsLabel.setText("" + numberofthrows);
+				reset();
+				isSaved = true;
+			}
 		}
 	}
 
 	public void setOneToSixTxAreas(TextArea txArea, int diceFace) {
 		int value = Yahtzee.countValueDices(dices, diceFace);
 
-		Label label = new Label();
-		int index = gridcolumn1.getChildren().indexOf(txArea);
-		gridcolumn1.getChildren().remove(index);
-		gridcolumn1.add(label, 1, diceFace - 1);
-		label.setText("" + value);
+		if(txArea.getText().equals("0") == false){
+			Label label = new Label();
+			int index = gridcolumn1.getChildren().indexOf(txArea);
+			gridcolumn1.getChildren().remove(index);
+			gridcolumn1.add(label, 1, diceFace - 1);
+			label.setText("" + value);
+			oneToSixIsFilled(diceFace);
+			totalFaces += value;
+			numberofthrows = 0;
+			numberofthrowsLabel.setText("" + numberofthrows);
+			reset();
+			isSaved = true;
+		}
+		else{
+			result = alert.showAndWait();
+			if(result.get() == ButtonType.OK){
+				Label label = new Label();
+				int index = gridcolumn1.getChildren().indexOf(txArea);
+				gridcolumn1.getChildren().remove(index);
+				gridcolumn1.add(label, 1, diceFace - 1);
+				label.setText("" + value);
+				oneToSixIsFilled(diceFace);
+				totalFaces += value;
+				numberofthrows = 0;
+				numberofthrowsLabel.setText("" + numberofthrows);
+				reset();
+				isSaved = true;
+			}
+		}
+	}
 
-		totalFaces += value;
-		numberofthrows = 0;
-		numberofthrowsLabel.setText("" + numberofthrows);
-		reset();
-		isSaved = true;
+	public void oneToSixIsFilled(int diceFace) {
+		switch (diceFace) {
+		case 1:
+			oneIsFilled = true;
+			break;
+		case 2:
+			twoIsFille = true;
+			break;
+		case 3:
+			threeIsFilled = true;
+			break;
+		case 4:
+			fourIsFilled = true;
+			break;
+		case 5:
+			fiveIsFilled = true;
+			break;
+		case 6:
+			sixIsFilled = true;
+		}
 	}
 
 	@FXML
@@ -319,11 +393,19 @@ public class Controller {
 			numberofthrows++;
 			numberofthrowsLabel.setText(numberofthrows + "");
 
+			if(true){
+			dices[0].setValue(1);
+			dices[1].setValue(1);
+			dices[2].setValue(1);
+			dices[3].setValue(1);
+			dices[4].setValue(1);
+			}
+
 			setValuesInTextAreas();
 			setDiceImages();
 
 		}
-	}
+	}// end method rollDices_click
 
 	public void setValuesInTextAreas() {
 		onesTxArea.setText("" + fillScoreTabel.getOnes(dices));
@@ -406,10 +488,6 @@ public class Controller {
 
 	@FXML
 	private void setDiceImages() {
-		for (int i = 0; i < dices.length; i++) {
-			System.out.println("dice " + (i + 1) + " = " + dices[i].getValue());
-		}
-		System.out.println();
 
 		Image[] image = new Image[6];
 		image[0] = new Image("file:resources/images/dice_1.png");

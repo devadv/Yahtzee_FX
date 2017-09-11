@@ -9,6 +9,7 @@ public class FillScoreTabel {
 	public final int SMALLSTRAIGHT = 30;
 	public final int LARGESTRAIGHT = 40;
 	public final int YAHTZEE = 50;
+	private boolean yahtzeeIsFilled;
 
 
 	public int getOnes(Dice[] dices){
@@ -74,21 +75,21 @@ public class FillScoreTabel {
 	}
 
 	public int getFullHouse(Dice[] dices) {
-		if( Yahtzee.isFullHouse(dices)){
+		if( Yahtzee.isFullHouse(dices) || yahtzeeIsFilled){
 			return FULLHOUSE;
 		}
 		return 0;
 	}
 
 	public int getSmallStraight(Dice[] dices) {
-		if(Yahtzee.isStraight(dices, 4)){
+		if(Yahtzee.isStraight(dices, 4) || yahtzeeIsFilled){
 			return SMALLSTRAIGHT;
 		}
 		return 0;
 	}
 
 	public int getLargeStraight(Dice[] dices) {
-		if(Yahtzee.isStraight(dices, 5)){
+		if(Yahtzee.isStraight(dices, 5) || yahtzeeIsFilled){
 			return LARGESTRAIGHT;
 		}
 		return 0;
@@ -103,6 +104,10 @@ public class FillScoreTabel {
 
 	public int getChange(Dice[] dices) {
 		return Yahtzee.countAllDices(dices);
+	}
+
+	public void setYahtzeeIsFilled(boolean yahtzee){
+		yahtzeeIsFilled = true;
 	}
 
 }// end class FillScoreTabel
