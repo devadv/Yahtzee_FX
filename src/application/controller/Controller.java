@@ -53,7 +53,7 @@ public class Controller {
 	private int player = 1;
 	private int totalFaces = 0;
 	private int totalDiceComb;
-	private Main main;
+	//private Main main;
 	private Dice[] dices = new Dice[5];
 	private ImageView[] imageView;
 	private ColorAdjust colorOnHold;
@@ -298,9 +298,9 @@ public class Controller {
 
 	}// end method setDiceImages
 
-	public void setMainApp(Main main) {
+/*	public void setMainApp(Main main) {
 		this.main = main;
 
 	}
-
+*/
 }

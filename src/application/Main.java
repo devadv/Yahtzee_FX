@@ -88,7 +88,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 
 			Controller controller = loader.getController();
-			controller.setMainApp(this);
+			//controller.setMainApp(this);
 			controller.start();
 
 			primaryStage.show();
